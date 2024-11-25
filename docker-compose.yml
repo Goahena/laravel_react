@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  # Service cho Laravel (Backend)
+  laravel:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: laravel-container
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./backend:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=laravel
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80" # Truy cập Laravel qua http://localhost:8080
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./backend:/var/www
+    networks:
+      - app-network
+  # MySQL container
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  # Service cho React (Frontend)
+  react:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react-container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+    depends_on:
+      - laravel
+
+networks:
+  app-network:
+    driver: bridge
