@@ -18,20 +18,29 @@ RUN apt-get update && apt-get install -y \
 # Cài đặt Composer (trình quản lý phụ thuộc PHP)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN mkdir -p /var/www/.composer /var/www/html/vendor /var/www/.cache /var/www/html/storage/app
+RUN chown -R www-data:www-data /var/www/.composer /var/www/html/vendor /var/www/.cache /var/www/html/storage/app
+
+RUN usermod -u 1000 www-data; groupmod -g 1000 www-data
+
 # Thiết lập thư mục làm việc cho Laravel
-WORKDIR /var/www
+WORKDIR /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html/ /var/www/.composer /var/www/.cache
+USER www-data
 
 # Sao chép tất cả mã nguồn vào container
-COPY . .
+COPY --chown=www-data:www-data . /var/www/html/
 
 # Cài đặt các phụ thuộc PHP bằng Composer
 RUN composer install --no-interaction
 
-# Cấu hình thư mục lưu trữ và quyền cho Laravel
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
+RUN php artisan storage:link
 
 # Expose port 9000 để Laravel có thể chạy
 EXPOSE 9000
 
+USER root
 # Chạy PHP-FPM cho Laravel
 CMD ["php-fpm"]
