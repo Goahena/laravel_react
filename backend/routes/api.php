@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
-
+use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\CategoryController;
 
 Route::group([
     'middlware' => 'api',
@@ -34,3 +35,5 @@ Route::group([
 Route::get('/search', [SearchController::class, 'search']);
 // bài viết
 Route::apiResource('posts', PostController::class);
+// danh mục
+Route::apiResource('categories', CategoryController::class);
