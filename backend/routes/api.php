@@ -32,3 +32,5 @@ Route::group([
 });
 
 Route::get('/search', [SearchController::class, 'search']);
+// bài viết
+Route::apiResource('posts', PostController::class);
