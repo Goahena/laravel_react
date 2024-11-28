@@ -97,11 +97,11 @@ class UserController extends BaseController
              return $this->sendError('User not found', [], 404);
          }
          $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255|unique:users,username,' . $user->user_id,
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'password' => 'required|string|min:6',
             'fullname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->user_id,
-            'phone' => 'required|string|max:255|unique:users,phone,' . $user->user_id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'phone' => 'required|string|max:255|unique:users,phone,' . $user->id,
             'role_id' => 'required|integer',
             ]);
         if ($validator->fails()) {

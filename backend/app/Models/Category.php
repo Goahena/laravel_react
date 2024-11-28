@@ -12,7 +12,11 @@ class Category extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasOne(Post::class);
+    }
+    public function categoryPosts()
+    {
+        return $this->hasOne(CategoryPost::class);
     }
     public function toSearchableArray(): array
 {
@@ -20,9 +24,7 @@ class Category extends Model
         'id' => (int) $this->title,
         'title' => $this->title,
         'slug' => $this->slug,
-        'body' => $this->body,
-        'published_at' =>  $this->published_at,
-        'category_id' => (int) $this->category_id,
+        'description' => $this->description,
         'created_at' => $this->created_at,
         'updated_at' => $this->updated_at,
     ];

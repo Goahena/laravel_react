@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_categorys', function (Blueprint $table) {
+        Schema::create('categoryPosts', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->integer('post_id');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreignId('category_id')->nullable();
+            $table->integer('category_id')->index();
         });
     }
 

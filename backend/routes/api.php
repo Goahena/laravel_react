@@ -18,6 +18,8 @@ Route::group([
     Route::post('/profile', [AuthController::class, 'profile'])->middleware('auth:api');
     Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+    Route::post('/send-verification-code', [AuthController::class, 'sendVerificationCode']);
+    Route::post('/verify-code', [AuthController::class, 'verifyCode']);
 });
 
 Route::group([

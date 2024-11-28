@@ -20,9 +20,9 @@ class PostFactory extends Factory
         'slug' => Str::slug(
             title: $title,
         ),
-        'body' => $this->faker->paragraph(),
+        'description' => $this->faker->paragraph(),
         // insert boolean to published and the chance of the value being true
-        'published_at' => $this->faker->boolean(
+        'timer' => $this->faker->boolean(
             chanceOfGettingTrue: 85,
         ),
 

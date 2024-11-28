@@ -12,6 +12,8 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Bcrypt;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 
 class AuthController extends BaseController
@@ -122,5 +124,62 @@ class AuthController extends BaseController
         return $status === Password::PASSWORD_RESET
             ? response()->json(['message' => 'Password reset successfully.'])
             : response()->json(['message' => 'Password reset failed.'], 400);
+    }
+    public function sendVerificationCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found.'], 404);
+        }
+
+        // Tạo mã xác minh 6 số
+        $verificationCode = random_int(100000, 999999);
+
+        // Lưu mã xác minh vào cơ sở dữ liệu
+        $user->verification_code = $verificationCode;
+        $user->code_expires_at = Carbon::now()->addMinutes(10); // Hết hạn sau 10 phút
+        $user->save();
+
+        // Gửi email
+        Mail::raw("Your verification code is: $verificationCode", function ($message) use ($user) {
+            $message->to($user->email)
+                    ->subject('Verification Code');
+        });
+
+        return response()->json(['message' => 'Verification code sent.']);
+    }
+    public function verifyCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'verification_code' => 'required|digits:6',
+            'password' => 'required|min:6',
+            'c_password' => 'required|string|same:password',
+        ]);
+
+        $user = User::where('email', $request->email)
+                    ->where('verification_code', $request->verification_code)
+                    ->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'Invalid code.'], 400);
+        }
+
+        if (Carbon::now()->greaterThan($user->code_expires_at)) {
+            return response()->json(['message' => 'Code expired.'], 400);
+        }
+
+        // Xác minh thành công
+        $user->verification_code = null; // Xóa mã để tránh sử dụng lại
+        $user->code_expires_at = null;
+        $user->password = bcrypt($request->password); // Mật khẩu đã được xác minh
+        $user->save();
+
+        return response()->json(['message' => 'Verification successful.']);
     }
 }

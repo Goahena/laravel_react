@@ -13,8 +13,19 @@ class User extends Authenticatable implements JWTSubject
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    public function posts()
+    {
+        return $this->hasOne(Post::class);
+    }
+    public function contacts()
+    {
+        return $this->hasOne(Contact::class);
+    }
+    public function roles()
+    {
+        return $this->hasOne(Role::class);
+    }
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
     /**
      * The attributes that are mass assignable.
      *
@@ -24,14 +35,12 @@ class User extends Authenticatable implements JWTSubject
         'username',
         'email',
         'password',
-        'slug',
         'role_id',//1, 2, 3
         'fullname',
-        'phone',
         'avatar',
-        'status', // 1: active, 0: inactive
-        'created_at',
-        'updated_at',
+        'slug',
+        'status',
+        'phone',
     ];
 
     /**
