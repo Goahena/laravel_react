@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_tags', function (Blueprint $table) {
-            $table->integer('post_tag')->primary();
-            $table->integer('post_id');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->foreignId('tag_id')->nullable()->index();
+        Schema::create('setting', function (Blueprint $table) {
+            $table->integer('id')->primary();
+            $table->string('name', 150);
+            $table->string('value', 150);
+            $table->string('value_type', 150);
+            $table->string('description', 150);
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('post_tags');
+        Schema::dropIfExists('setting');
     }
 };

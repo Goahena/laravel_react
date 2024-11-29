@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->integer('comment_parent_id');
-            $table->boolean('status');
+            $table->integer('parent_id');
+            $table->boolean('is_approve');
+            $table->integer('level');
             $table->integer('post_id');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->text('comment');
+            $table->string('content', 150);
             $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
         });
     }
 

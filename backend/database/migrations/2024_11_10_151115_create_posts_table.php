@@ -14,18 +14,18 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->string('slug', 150);
+            $table->string('tag', 150);
             $table->string('title', 150);
-            $table->text('body');
-            $table->string('images', 150);
+            $table->string('description', 255);
+            $table->string('image', 150);
             $table->integer('views');
-            $table->integer('likes');
-            $table->integer('dislikes');
-            $table->string('status', 150)->default(true);
-            $table->timestamp('published_at')->nullable()->useCurrent();
-            $table->timestamp('remove_at')->nullable()->useCurrent();
+            $table->boolean('is_active')->default(true);
             $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->timestamp('updated_at')->nullable()->useCurrent();   
-            $table->foreignId('user_id')->nullable(); 
+            $table->timestamp('updated_at')->nullable()->useCurrent();
+            $table->timestamp('timer')->nullable()->useCurrent();
+            $table->boolean('is_comment')->default(true);
+            $table->integer('user_id')->index();
+            
         });
     }
 

@@ -16,11 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(categories_table::class);
         $this->call(comments_table::class);
         $this->call(contacts_table::class);
-        $this->call(medias_table::class);
         $this->call(post_categorys_table::class);
-        $this->call(post_tags_table::class);
         $this->call(roles_table::class);
-        $this->call(tags_table::class);
         $this->call(users_table::class);
     }
 }

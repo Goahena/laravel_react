@@ -13,24 +13,32 @@ class Post extends Model
 
     protected $fillable = [
         'title',
+        'name',
         'slug',
-        'body',
-        'published_at',
-        'category_id',
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasOne(Category::class);
+    }  
+    public function categoryPost()
+    {
+        return $this->hasOne(CategoryPost::class);
+    }  
+    public function users()
+    {
+        return $this->hasOne(User::class);
+    }  
+    public function comments()
+    {
+        return $this->hasOne(Comment::class);
     }  
     public function toSearchableArray()
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'published_at' => $this->published_at,
-            'category_id' => $this ->category_id,
+            'name' => $this->name,
+            'slug' => $this->slug,
         ];
     } 
 }
