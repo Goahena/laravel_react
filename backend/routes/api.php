@@ -5,10 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+
+use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\API\PostController;
-
 Route::group([
     'middlware' => 'api',
     'prefix' => 'auth',
