@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\API\PostController;
 
 Route::group([
     'middlware' => 'api',
@@ -58,3 +58,5 @@ Route::group([
     Route::put('/{id}', [ContactController::class, 'update']);
     Route::delete('/{id}', [ContactController::class, 'destroy']);
 });
+// bài viết
+Route::apiResource('posts', PostController::class);
