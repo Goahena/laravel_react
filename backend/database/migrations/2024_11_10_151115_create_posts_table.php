@@ -18,13 +18,12 @@ return new class extends Migration
             $table->string('title', 150);
             $table->string('description', 255);
             $table->string('image', 150);
-            $table->integer('views');
             $table->boolean('is_active')->default(true);
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
             $table->timestamp('timer')->nullable()->useCurrent();
             $table->boolean('is_comment')->default(true);
-            $table->integer('user_id')->index();
+            $table->integer('author_id')->index();
             
         });
     }
