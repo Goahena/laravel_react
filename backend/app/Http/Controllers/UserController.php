@@ -54,12 +54,12 @@ class UserController extends BaseController
         $user->slug = Str::slug($input['fullname']); 
         $user->status = $input['status'] ?? 1; // 1: active, 0: inactive 
         $user->role_id = $input['role_id']; 
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $filename = uniqid() . '.' . $file->getClientOriginalExtension();
             
             $path = $file->storeAs('public/img', $filename);
-            $user->avatar = substr($path, strlen('public/'));
+            $user->image = substr($path, strlen('public/'));
         }
         $user->save(); 
         $success['user'] = $user; 
@@ -117,12 +117,12 @@ class UserController extends BaseController
         $user->slug = Str::slug($input['fullname']); 
         $user->status = $input['status'] ?? 1; // 1: active, 0: inactive 
         $user->role_id = $input['role_id']; 
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-            Storage::delete('public/' . $user->avatar);
+            Storage::delete('public/' . $user->image);
             $path = $file->storeAs('public/img', $filename);
-            $user->avatar = substr($path, strlen('public/'));
+            $user->image = substr($path, strlen('public/'));
         }
         $user->save(); 
         $success['user'] = $user; 
@@ -140,9 +140,9 @@ class UserController extends BaseController
             return $this->sendError('User not found');
         }
 
-        // Xóa avatar nếu có
-        if ($user->avatar) {
-            Storage::delete('public/' . $user->avatar);
+        // Xóa image nếu có
+        if ($user->image) {
+            Storage::delete('public/' . $user->image);
         }
 
         $user->delete();
