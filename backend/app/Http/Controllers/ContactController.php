@@ -1,87 +1,119 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ContactController extends BaseController
+class ContactController extends Controller
 {
-    // Lấy danh sách liên hệ
+
     public function index()
     {
         $contacts = Contact::all();
-
-        return $this->sendResponse($contacts, 'Contacts retrieved successfully.');
+        return response()->json([
+            'status' => 'success',
+            'data' => $contacts,
+        ], 200);
     }
 
-    // Tạo liên hệ mới
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'nullable|exists:users,id',
-            'name' => 'nullable|string|max:150',
-            'email' => 'nullable|string|email|max:150',
-            'contact_content' => 'required|string', 
+            'fullname' => 'required|string|max:150',
+            'email' => 'required|string|email|max:150',
+            'content' => 'required|string|max:150',
+            'user_id' => 'required|integer|exists:users,id',
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error', $validator->errors());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation Error',
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
         $contact = Contact::create($request->all());
 
-        return $this->sendResponse($contact, 'Contact created successfully.');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Contact created successfully.',
+            'data' => $contact,
+        ], 201);
     }
 
-    // Lấy chi tiết một liên hệ
+
     public function show($id)
     {
         $contact = Contact::find($id);
 
         if (!$contact) {
-            return $this->sendError('Contact not found.', [], 404);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Contact not found.',
+            ], 404);
         }
 
-        return $this->sendResponse($contact, 'Contact retrieved successfully.');
+        return response()->json([
+            'status' => 'success',
+            'data' => $contact,
+        ], 200);
     }
 
-    // Cập nhật liên hệ
     public function update(Request $request, $id)
     {
         $contact = Contact::find($id);
 
         if (!$contact) {
-            return $this->sendError('Contact not found.', [], 404);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Contact not found.',
+            ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'nullable|exists:users,id',
-            'name' => 'nullable|string|max:150',
+            'fullname' => 'nullable|string|max:150',
             'email' => 'nullable|string|email|max:150',
-            'contact_content' => 'nullable|string',
+            'content' => 'nullable|string|max:150',
+            'seen' => 'nullable|boolean',
+            'user_id' => 'nullable|integer|exists:users,id',
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error', $validator->errors());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Validation Error',
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
         $contact->update($request->all());
 
-        return $this->sendResponse($contact, 'Contact updated successfully.');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Contact updated successfully.',
+            'data' => $contact,
+        ], 200);
     }
 
-    // Xóa liên hệ
     public function destroy($id)
     {
         $contact = Contact::find($id);
 
         if (!$contact) {
-            return $this->sendError('Contact not found.', [], 404);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Contact not found.',
+            ], 404);
         }
 
         $contact->delete();
 
-        return $this->sendResponse([], 'Contact deleted successfully.');
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Contact deleted successfully.',
+        ], 200);
     }
 }
