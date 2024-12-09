@@ -11,8 +11,9 @@ class Category extends Model
 
     public $updated_at = false;
     public $created_at = false;
-    public function posts()
-    protected $fillable = ['slug', 'name', 'parentId'];
+    public function posts() {
+        protected $fillable = ['slug', 'name', 'parentId'];
+    }
     public function children()
     {
         return $this->hasMany(Category::class, 'parentId');
