@@ -10,7 +10,7 @@ class Comment extends Model
 {
     use Searchable;
     use HasFactory;
-
+    public $updated_at = false;
     public function posts()
     {
         return $this->hasOne(Post::class);

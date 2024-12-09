@@ -9,6 +9,10 @@ class Contact extends Model
 {
     use HasFactory;
 
+    public $updated_at = false;
+    public function users()
+
+
     protected $table = 'contacts';
 
     protected $primaryKey = 'id';

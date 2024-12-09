@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryPost extends Model
 {
+    protected $table = 'categoryPosts';
     use Searchable;
     use HasFactory;
-
+    public $timestamps = false;
     public function posts()
     {
         return $this->hasOne(Post::class);
