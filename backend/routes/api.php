@@ -6,7 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
 
-
+use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 Route::group([
     'middlware' => 'api',
     'prefix' => 'auth',
@@ -34,3 +37,27 @@ Route::group([
 });
 
 Route::get('/search', [SearchController::class, 'search']);
+
+Route::group([
+    'middlware' => 'api',
+    'prefix' => 'comment',
+], function($router){
+    Route::get('/', [CommentController::class, 'index']);
+    Route::post('/', [CommentController::class, 'store']);
+    Route::get('/{id}', [CommentController::class, 'show']);
+    Route::put('/{id}', [CommentController::class, 'update']);
+    Route::delete('/{id}', [CommentController::class, 'destroy']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'contact',
+], function ($router) {
+    Route::get('/', [ContactController::class, 'index']);
+    Route::post('/', [ContactController::class, 'store']);
+    Route::get('/{id}', [ContactController::class, 'show']);
+    Route::put('/{id}', [ContactController::class, 'update']);
+    Route::delete('/{id}', [ContactController::class, 'destroy']);
+});
+// bài viết
+Route::apiResource('posts', PostController::class);
