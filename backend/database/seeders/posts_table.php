@@ -23,7 +23,7 @@ class posts_table extends Seeder
             'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/xang-vung-tau-1-600x400.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 2, 
@@ -34,7 +34,7 @@ class posts_table extends Seeder
             'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/hanoi-sap-xay-ba-cau-lon-viet-song-hong-1-600x400.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 3, 
@@ -45,7 +45,7 @@ class posts_table extends Seeder
             'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/siet-quan-ly-gia-thuoc-1-600x400.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 4, 
@@ -56,7 +56,7 @@ class posts_table extends Seeder
             'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/xe-tai-lao-xuong-song-hai-nguoi-mat-tich-1-600x400.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 5, 
@@ -67,7 +67,7 @@ class posts_table extends Seeder
             'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/thuong-tai-chinh-lam-pho-chanh-van-phong-trung-uong-dang-1-600x400.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 6, 
@@ -78,7 +78,7 @@ class posts_table extends Seeder
             'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/binh-phuc-lam-pho-ban-doi-ngoai-trung-uong-1-600x400.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
     }
 }

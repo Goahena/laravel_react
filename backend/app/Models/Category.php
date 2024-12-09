@@ -9,7 +9,8 @@ class Category extends Model
 {
     use Searchable;
     use HasFactory;
-
+    public $updated_at = false;
+    public $created_at = false;
     public function posts()
     {
         return $this->hasOne(Post::class);
@@ -25,13 +26,7 @@ class Category extends Model
         'title' => $this->title,
         'slug' => $this->slug,
         'description' => $this->description,
-        'created_at' => $this->created_at,
-        'updated_at' => $this->updated_at,
     ];
     
-}
-public function shouldBeSearchable(): bool
-{
-    return $this->published_at;
 }
 }

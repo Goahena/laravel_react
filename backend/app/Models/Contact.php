@@ -9,7 +9,7 @@ class Contact extends Model
 {
     use Searchable;
     use HasFactory;
-
+    public $updated_at = false;
     public function users()
     {
         return $this->hasOne(User::class);
