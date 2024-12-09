@@ -16,15 +16,8 @@ class Comment extends Model
         return $this->hasOne(Post::class);
     }
 
-
-    protected $table = 'comments';
-    protected $primaryKey = 'comment_id';
     protected $fillable = [
         'comment', 'comment_parent_id', 'post_id', 'created_at', 'updated_at'
     ];
 
-    public function post()
-    {
-        return $this->belongsTo(Post::class, 'post_id', 'id');
-    }
 }
