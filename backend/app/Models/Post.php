@@ -44,9 +44,10 @@ class Post extends Model
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id' => (int) $this->title,
+            'title' => $this->title,
             'slug' => $this->slug,
+            'description' => $this->description,
         ];
     }
 
