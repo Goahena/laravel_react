@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Lấy tất cả bình luận.
-     */
     public function index()
     {
-        $comments = Comment::with('post')->get();
+        $comments = Comment::with('post')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return response()->json(['comments' => $comments], 200);
     }
 
@@ -30,12 +29,13 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->post_id = $validatedData['post_id'];
-        $comment->comment = $validatedData['comment'];
-        $comment->comment_parent_id = $validatedData['comment_parent_id'] ?? null; // Nếu không có, đặt null
-        $comment->status = $validatedData['status'] ?? 1; // Mặc định là 1 (hiển thị)
+        $comment->content = $validatedData['comment'];
+        $comment->parent_id = $validatedData['comment_parent_id'] ?? null; // Nếu không có, đặt null
+        $comment->is_approve = $validatedData['status'] ?? 1; // Mặc định là 1 (hiển thị)
+        $comment->created_at = now();
         $comment->save();
 
-        return response()->json(['comment' => $comment, 'message' => 'Comment created successfully'], 201);
+        return response()->json(['comment' => $comment, 'message' => 'Thêm bình luận thành công'], 201);
     }
 
     /**
@@ -49,11 +49,11 @@ class CommentController extends Controller
         ]);
 
         $comment = Comment::findOrFail($id);
-        $comment->comment = $validatedData['comment'];
-        $comment->status = $validatedData['status'] ?? $comment->status;
+        $comment->content = $validatedData['comment'];
+        $comment->is_approve = $validatedData['status'] ?? $comment->is_approve;
         $comment->save();
 
-        return response()->json(['comment' => $comment, 'message' => 'Comment updated successfully'], 200);
+        return response()->json(['comment' => $comment, 'message' => 'Cập nhật bình luận thành công'], 200);
     }
 
     /**
@@ -64,7 +64,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
         $comment->delete();
 
-        return response()->json(['message' => 'Comment deleted successfully'], 200);
+        return response()->json(['message' => 'Xóa bình luận thành công'], 200);
     }
 
     /**

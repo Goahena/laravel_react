@@ -20,7 +20,12 @@ class Comment extends Model
     protected $table = 'comments';
     protected $primaryKey = 'comment_id';
     protected $fillable = [
-        'comment', 'comment_parent_id', 'post_id', 'created_at', 'updated_at'
+        'parent_id',
+        'is_approve',
+        'level',
+        'post_id',
+        'content',
+        'created_at',
     ];
 
     public function post()

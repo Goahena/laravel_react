@@ -13,7 +13,7 @@ class ContactController extends Controller
     {
         $contacts = Contact::all();
         return response()->json([
-            'status' => 'success',
+            'status' => 'Thành công',
             'data' => $contacts,
         ], 200);
     }
@@ -30,7 +30,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation Error',
+                'message' => 'Lỗi định dạng',
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -39,7 +39,7 @@ class ContactController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contact created successfully.',
+            'message' => 'Tạo liên hệ thành công',
             'data' => $contact,
         ], 201);
     }
@@ -52,7 +52,7 @@ class ContactController extends Controller
         if (!$contact) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Contact not found.',
+                'message' => 'Không tìm thấy liên hệ',
             ], 404);
         }
 
@@ -69,7 +69,7 @@ class ContactController extends Controller
         if (!$contact) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Contact not found.',
+                'message' => 'Không tìm thấy liên hệ',
             ], 404);
         }
 
@@ -84,7 +84,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Validation Error',
+                'message' => 'Lỗi định dạng',
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -93,7 +93,7 @@ class ContactController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contact updated successfully.',
+            'message' => 'Cập nhật liên hệ thành công',
             'data' => $contact,
         ], 200);
     }
@@ -105,7 +105,7 @@ class ContactController extends Controller
         if (!$contact) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Contact not found.',
+                'message' => 'Không tìm thấy liên hệ',
             ], 404);
         }
 
@@ -113,7 +113,7 @@ class ContactController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Contact deleted successfully.',
+            'message' => 'Xóa liên hệ thành công',
         ], 200);
     }
 }
