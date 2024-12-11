@@ -56,7 +56,19 @@ services:
       - app-network
     depends_on:
       - laravel
-
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    ports:
+      - "7700:7700"
+    environment:
+      MEILI_ENV: "production"
+      MEILI_MASTER_KEY: "P_bKjtUOiDg6h01Ex75vwkQvbtm7W21EkMZOz0d3IcE"
+    volumes:
+      - ./backend/meilisearch:/meili_data
+    restart: unless-stopped
+    networks:
+      - app-network
 networks:
   app-network:
     driver: bridge
