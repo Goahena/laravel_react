@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
 
-class Postcontroller extends Controller
+class PostController extends Controller
 {
 
     public function index()
