@@ -11,6 +11,7 @@ class CommentController extends Controller
     {
         $comments = Comment::with('post')
             ->orderBy('created_at', 'desc')
+            ->groupBy('post_id')
             ->get();
         return response()->json(['comments' => $comments], 200);
     }
