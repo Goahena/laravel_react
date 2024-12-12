@@ -33,5 +33,16 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 # Expose port 9000 để Laravel có thể chạy
 EXPOSE 9000
 
+#Cài đặt meilisearch
+RUN curl -L https://install.meilisearch.com | sh
+
+# Chạy meilisearch
+RUN .\meilisearch
+
+# Cài đặt thư viện Meilisearch
+RUN composer require meilisearch/meilisearch-php
+
+
+
 # Chạy PHP-FPM cho Laravel
 CMD ["php-fpm"]

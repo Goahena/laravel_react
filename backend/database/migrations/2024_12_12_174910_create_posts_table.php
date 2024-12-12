@@ -21,9 +21,10 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrent();
-            $table->timestamp('timer')->nullable()->useCurrent();
+            $table->timestamp('published_at')->nullable()->useCurrent();
             $table->boolean('is_comment')->default(true);
-            $table->integer('author_id')->index();
+            $table->integer('author_id');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             
         });
     }

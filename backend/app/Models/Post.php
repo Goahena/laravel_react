@@ -37,8 +37,9 @@ class Post extends Model
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
+            'title' => $this->title,
+            'description' => $this->description,
+            
         ];
     } 
 }
