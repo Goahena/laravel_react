@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryPost extends Model
 {
-    protected $table = 'categoryPosts';
+    protected $table = 'categoryposts';
     use Searchable;
     use HasFactory;
     public $timestamps = false;

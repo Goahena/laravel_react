@@ -12,12 +12,20 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('categories', 'author')->paginate(6);
+        $posts = Post::with('categories', 'author')->get();
         if($posts -> isEmpty()) {
             return response()->json([
                 'message' => 'Không có bài viết nào',
             ],);
         }
+        $groupedPosts = $posts->groupBy(fn($post) => $post->categories->first()->id ?? null);
+
+        return response()->json(
+            $groupedPosts->map(fn($postsInCategory, $categoryId) => [
+                'category_id' => $categoryId,
+                'posts' => $postsInCategory
+            ])
+        );
         return response()->json($posts);
     }
 
