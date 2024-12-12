@@ -1,17 +1,21 @@
+#!/bin/sh
 
-# Kiểm tra nếu file .env đã tồn tại
-if [ ! -f .env ]; then
-    cp .env.example .env
+# Đường dẫn đến thư mục backend
+BACKEND_DIR="backend"
+
+# Kiểm tra nếu file .env đã tồn tại trong thư mục backend
+if [ ! -f "$BACKEND_DIR/.env" ]; then
+    cp "$BACKEND_DIR/.env.example" "$BACKEND_DIR/.env"
     echo "Nhập giá trị JWT_SECRET của bạn:"
     read JWT_SECRET
     echo "Nhập giá trị MEILISEARCH_KEY của bạn:"
     read MEILISEARCH_KEY
 
     # Thay thế các placeholder bằng giá trị thực
-    sed -i "s/4m7zidEiDXPY2pF72fBCTKy9QO0UMmAaOw1U0b2FmhfpwU0joFeGilY7GGiUzNRG/$JWT_SECRET/g" .env
-    sed -i "s/P_bKjtUOiDg6h01Ex75vwkQvbtm7W21EkMZOz0d3IcE/$MEILISEARCH_KEY/g" .env
+    sed -i "s/your_jwt_secret_here/$JWT_SECRET/" "$BACKEND_DIR/.env"
+    sed -i "s/your_meilisearch_key_here/$MEILISEARCH_KEY/" "$BACKEND_DIR/.env"
 
-    echo "Đã cập nhật file .env với các giá trị bí mật"
+    echo "Đã cập nhật file .env với các giá trị bí mật trong thư mục backend"
 else
-    echo "File .env đã tồn tại. Vui lòng kiểm tra và cập nhật nếu cần."
+    echo "File .env đã tồn tại trong thư mục backend. Vui lòng kiểm tra và cập nhật nếu cần."
 fi
