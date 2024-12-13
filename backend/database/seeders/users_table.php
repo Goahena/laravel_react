@@ -17,6 +17,7 @@ class users_table extends Seeder
     public function run(): void
     {
        User::create([
+            'id' => 1,
            'slug' => 'le-thanh-huy',
            'username' => 'lethanhhuy',
            'fullname' => 'Le Thanh Huy',
@@ -31,6 +32,7 @@ class users_table extends Seeder
        ]);
 
        User::create([
+            'id' => 2,
            'slug' => 'le-thanh-huy-123',
            'username' => 'lethanhhuy123',
            'fullname' => 'Le Thanh Huy',
