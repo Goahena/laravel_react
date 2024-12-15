@@ -61,3 +61,5 @@ Route::group([
 });
 // bài viết
 Route::apiResource('posts', PostController::class);
+// danh mục
+Route::apiResource('categories', CategoryController::class);

@@ -2,7 +2,8 @@
 sudo apt-get install dos2unix
 
 #cài đặt .env
-/bin/bash ./setup-env.sh
+dos2unix ./setup-env.sh
+
 JWT_SECRET=4m7zidEiDXPY2pF72fBCTKy9QO0UMmAaOw1U0b2FmhfpwU0joFeGilY7GGiUzNRG
 MEILISEARCH_KEY=P_bKjtUOiDg6h01Ex75vwkQvbtm7W21EkMZOz0d3IcE
 
