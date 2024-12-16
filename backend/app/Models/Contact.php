@@ -13,6 +13,8 @@ class Contact extends Model
 
     protected $primaryKey = 'id';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'fullname',
         'email',

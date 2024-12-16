@@ -2,118 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
 
     public function index()
     {
-        $contacts = Contact::all();
-        return response()->json([
-            'status' => 'Thành công',
-            'data' => $contacts,
-        ], 200);
+        $contacts = Contact::with('user')
+            ->orderBy('user_id', 'asc')
+            ->paginate(10);
+        return response()->json($contacts);
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'fullname' => 'required|string|max:150',
-            'email' => 'required|string|email|max:150',
-            'content' => 'required|string|max:150',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Lỗi định dạng',
-                'errors' => $validator->errors(),
-            ], 422);
+        if (!auth()->check()) {
+            return response()->json(['error' => 'Bạn phải đăng nhập để thực hiện thao tác này'], 401);
         }
 
-        $contact = Contact::create($request->all());
+        $validated = $request->validate([
+            'fullname' => 'required|max:150',
+            'email' => 'required|email|max:150',
+            'content' => 'required|max:150',
+        ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Tạo liên hệ thành công',
-            'data' => $contact,
-        ], 201);
+        $validated['user_id'] = auth()->id();
+
+        $contact = Contact::create($validated);
+
+        return response()->json($contact, 201);
     }
-
 
     public function show($id)
     {
-        $contact = Contact::find($id);
-
-        if (!$contact) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Không tìm thấy liên hệ',
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $contact,
-        ], 200);
+        $contact = Contact::with('user')->findOrFail($id);
+        return response()->json($contact);
     }
 
     public function update(Request $request, $id)
     {
-        $contact = Contact::find($id);
-
-        if (!$contact) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Không tìm thấy liên hệ',
-            ], 404);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'fullname' => 'nullable|string|max:150',
-            'email' => 'nullable|string|email|max:150',
-            'content' => 'nullable|string|max:150',
-            'seen' => 'nullable|boolean',
-            'user_id' => 'nullable|integer|exists:users,id',
+        $validated = $request->validate([
+            'fullname' => 'required',
+            'email' => 'required|email',
+            'content' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Lỗi định dạng',
-                'errors' => $validator->errors(),
-            ], 422);
-        }
+        $validated['user_id'] = auth()->id();
 
-        $contact->update($request->all());
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Cập nhật liên hệ thành công',
-            'data' => $contact,
-        ], 200);
+        $contact = Contact::findOrFail($id);
+        $contact->update($validated);
+        return response()->json($contact);
     }
 
     public function destroy($id)
     {
-        $contact = Contact::find($id);
-
-        if (!$contact) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Không tìm thấy liên hệ',
-            ], 404);
-        }
-
+        $contact = Contact::findOrFail($id);
         $contact->delete();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Xóa liên hệ thành công',
-        ], 200);
+        return response()->json(['message' => 'Xóa liên hệ thành công']);
     }
 }

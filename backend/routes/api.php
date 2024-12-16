@@ -38,13 +38,16 @@ Route::group([
 
 Route::get('/search', [SearchController::class, 'search']);
 
+// bài viết
+Route::apiResource('posts', PostController::class);
+
 Route::group([
-    'middlware' => 'api',
-    'prefix' => 'comment',
-], function($router){
+    'middleware' => 'api',
+    'prefix' => 'comments',
+], function () {
     Route::get('/', [CommentController::class, 'index']);
+    Route::get('/post/{postId}', [CommentController::class, 'getCommentsByPost']);
     Route::post('/', [CommentController::class, 'store']);
-    Route::get('/{id}', [CommentController::class, 'show']);
     Route::put('/{id}', [CommentController::class, 'update']);
     Route::delete('/{id}', [CommentController::class, 'destroy']);
 });
@@ -59,5 +62,3 @@ Route::group([
     Route::put('/{id}', [ContactController::class, 'update']);
     Route::delete('/{id}', [ContactController::class, 'destroy']);
 });
-// bài viết
-Route::apiResource('posts', PostController::class);
