@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->integer('id')->primary()->autoIncrement();
+            $table->integer('id')->primary();
             $table->integer('parent_id');
             $table->boolean('is_approve');
             $table->integer('level');
