@@ -38,8 +38,9 @@ Route::group([
 
 Route::get('/search', [SearchController::class, 'search']);
 
+//Bình luận
 Route::group([
-    'middlware' => 'api',
+    'middleware' => 'api',
     'prefix' => 'comment',
 ], function($router){
     Route::get('/', [CommentController::class, 'index']);
@@ -49,10 +50,11 @@ Route::group([
     Route::delete('/{id}', [CommentController::class, 'destroy']);
 });
 
+//Liên hệ
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'auth:api', // Chỉ cho phép người dùng đã đăng nhập
     'prefix' => 'contact',
-], function ($router) {
+], function () {
     Route::get('/', [ContactController::class, 'index']);
     Route::post('/', [ContactController::class, 'store']);
     Route::get('/{id}', [ContactController::class, 'show']);
@@ -61,5 +63,7 @@ Route::group([
 });
 // bài viết
 Route::apiResource('posts', PostController::class);
+
 // danh mục
 Route::apiResource('categories', CategoryController::class);
+
