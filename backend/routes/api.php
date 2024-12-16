@@ -11,7 +11,7 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 Route::group([
-    'middlware' => 'api',
+    'middleware' => 'api',
     'prefix' => 'auth',
 ],function($router){
     Route::post('/login', [AuthController::class, 'login']);

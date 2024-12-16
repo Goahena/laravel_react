@@ -53,7 +53,11 @@ class AuthController extends BaseController
         }
         $user->save();
         $success['user'] = $user;
-        return $this->sendResponse($success, 'User created successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'User created successfully',
+            'user' => $user
+        ], 201);
     }
     public function login(){
         $credetials = request([

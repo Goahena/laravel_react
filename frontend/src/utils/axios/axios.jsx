@@ -4,7 +4,7 @@ import getAccessToken from "../functions/getAccessToken";
 
 const httpRequest = axios.create({
   baseURL: env.REACT_APP_BASE_URL_2,
-  timeout: 10000,
+  timeout: 30000,
 });
 
 httpRequest.interceptors.request.use(function (config) {
