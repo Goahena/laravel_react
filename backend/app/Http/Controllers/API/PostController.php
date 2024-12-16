@@ -7,18 +7,34 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Storage;
 
-class Postcontroller extends Controller
+class PostController extends Controller
 {
 
     public function index()
     {
-        $posts = Post::with('categories', 'author')->paginate(6);
+        $posts = Post::with('categories', 'author')->get();
         if($posts -> isEmpty()) {
             return response()->json([
                 'message' => 'Không có bài viết nào',
             ],);
         }
-        return response()->json($posts);
+        $groupedPosts = $posts->groupBy(fn($post) => $post->categories->first()->id ?? null);
+
+        $result = $groupedPosts->map(fn($postsInCategory, $categoryId) => [
+            'category_id' => $categoryId,
+            'category_name' => $postsInCategory->first()->categories->first()->name ?? 'Không xác định',
+            'category_slug' => $postsInCategory->first()->categories->first()->slug ?? 'Không xác định',
+            'posts' => $postsInCategory->map(fn($post) => [
+                'slug' => $post->slug,
+                'title' => $post->title,
+                'description' => $post->description,
+                'image' => $post->image,
+                'created_at' => $post->created_at,
+                'author_name' => $post->author->username
+            ])->values()
+        ])->values();
+    
+        return response()->json($result);
     }
 
     public function store(Request $request)
@@ -61,8 +77,22 @@ class Postcontroller extends Controller
         if (!$post) {
             return response()->json(['message' => 'Không tìm thấy bài viết'], 404);
         }
+        $result = [
+            'slug' => $post->slug,
+            'title' => $post->title,
+            'description' => $post->description,
+            'image' => $post->image,
+            'created_at' => $post->created_at,
+            'updated_at' => $post->updated_at,
+            'author_name' => $post->author->username ?? 'Không rõ tác giả',
+            'categories' => $post->categories->map(fn($category) => [
+                'id' => $category->id,
+                'name' => $category->name,
+                'slug' => $category->slug,
+            ])->values(),
+        ];
 
-        return response()->json($post);
+        return response()->json($result);
     }
 
 

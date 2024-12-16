@@ -20,11 +20,10 @@ class posts_table extends Seeder
             'slug' => 'cay-xang-o-vung-tau-bi-dong-hoat-dong-do-nghi-gian-lan',
             'title' => 'Cây xăng ở Vũng Tàu bị dừng hoạt động do nghi gian lận',
             'description' => 'Cửa hàng xăng ở TP Vũng Tàu bị dừng hoạt động do cơ quan chức năng nghi ngờ doanh nghiệp tác động các trụ bơm để làm sai lệch kết quả đo khi bán cho khách.',
-            'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/xang-vung-tau-1-600x400.jpg',
-            'views' => 100,
+            'image' => '../storage/app/public/1.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 2, 
@@ -32,11 +31,10 @@ class posts_table extends Seeder
             'slug' => 'hanoi-sap-xay-ba-cau-lon-viet-song-hong',
             'title' => 'Hà Nội sắp xây ba cầu lớn vượt sông Hồng',
             'description' => 'UBND TP Hà Nội vừa thống nhất chủ trương xây cầu Tứ Liên, Trần Hưng Đạo và Ngọc Hồi trong giai đoạn 2025-2030 bằng vốn đầu tư công.',
-            'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/hanoi-sap-xay-ba-cau-lon-viet-song-hong-1-600x400.jpg',
-            'views' => 100,
+            'image' => '../storage/app/public/2.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 3, 
@@ -44,11 +42,10 @@ class posts_table extends Seeder
             'slug' => 'siet-quan-ly-gia-thuoc',
             'title' => 'Siết quản lý giá thuốc',
             'description' => 'Chiều 21/11, Quốc hội thông qua dự Luật sửa đổi, bổ sung một số điều Luật Dược, trong đó có việc tăng cường quản lý giá thuốc. ',
-            'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/siet-quan-ly-gia-thuoc-1-600x400.jpg',
-            'views' => 100,
+            'image' => '../storage/app/public/3.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 4, 
@@ -56,11 +53,10 @@ class posts_table extends Seeder
             'slug' => 'xe-tai-lao-xuong-song-hai-nguoi-mat-tich',
             'title' => 'Xe tải lao xuống sông, hai người mất tích',
             'description' => 'Thừa Thiên - Huế Đang chạy qua cầu treo Bình Thành, xe tải chở rác chở theo hai người bất ngờ đâm vào lan can, rơi xuống dòng sông Hữu Trạch, sáng 21/11. ',
-            'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/xe-tai-lao-xuong-song-hai-nguoi-mat-tich-1-600x400.jpg',
-            'views' => 100,
+            'image' => '../storage/app/public/4.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 5, 
@@ -68,11 +64,10 @@ class posts_table extends Seeder
             'slug' => 'thu-truong-tai-chinh-lam-pho-chanh-van-phong-trung-uong-dang',
             'title' => 'Thứ trưởng Tài chính làm Phó chánh Văn phòng Trung ương Đảng',
             'description' => 'Ông Võ Thành Hưng, Thứ trưởng Tài chính, được Ban Bí thư điều động, bổ nhiệm giữ chức Phó chánh Văn phòng Trung ương Đảng.',
-            'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/thuong-tai-chinh-lam-pho-chanh-van-phong-trung-uong-dang-1-600x400.jpg',
-            'views' => 100,
+            'image' => '../storage/app/public/5.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
         Post::create([
             'id' => 6, 
@@ -80,11 +75,10 @@ class posts_table extends Seeder
             'slug' => 'binh-phuc-lam-pho-ban-doi-ngoai-trung-uong',
             'title' => 'Bí thư Bình Phước làm Phó ban Đối ngoại Trung ương',
             'description' => 'Ông Nguyễn Mạnh Cường, Bí thư Tỉnh ủy Bình Phước, được Bộ Chính trị điều động, bổ nhiệm giữ chức Phó ban Đối ngoại Trung ương.',
-            'image' => 'https://cdn.tgdd.vn/2022/05/news/20220512/binh-phuc-lam-pho-ban-doi-ngoai-trung-uong-1-600x400.jpg',
-            'views' => 100,
+            'image' => '../storage/app/public/6.jpg',
             'created_at' => now(),
             'updated_at' => now(),
-            'user_id' => 1
+            'author_id' => 1
         ]);
     }
 }

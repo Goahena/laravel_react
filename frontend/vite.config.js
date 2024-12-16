@@ -6,9 +6,11 @@ export default defineConfig({
     plugins: [react()],
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "src"),
+            // eslint-disable-next-line no-undef
+            "~": path.resolve(__dirname, "src"),
         },
     },
+    
     server: {
         proxy: {
             "/api": "http://laravel-container:9000",

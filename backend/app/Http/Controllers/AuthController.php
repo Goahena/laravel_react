@@ -44,16 +44,20 @@ class AuthController extends BaseController
         $user->slug = Str::slug($input['fullname']);
         $user->status = $input['status'] ?? 1; // 1: active, 0: inactive
         $user->role_id = 1;
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $filename = uniqid() . '.' . $file->getClientOriginalExtension();
             
             $path = $file->storeAs('public/img', $filename);
-            $user->avatar = substr($path, strlen('public/'));
+            $user->image = substr($path, strlen('public/'));
         }
         $user->save();
         $success['user'] = $user;
-        return $this->sendResponse($success, 'User created successfully');
+        return response()->json([
+            'success' => true,
+            'message' => 'User created successfully',
+            'user' => $user
+        ], 201);
     }
     public function login(){
         $credetials = request([
