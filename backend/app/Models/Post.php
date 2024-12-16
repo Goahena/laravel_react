@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable; // Thêm Searchable vào đây
+
     public $timestamps = true;
     protected $fillable = [
         'name',
@@ -22,27 +23,31 @@ class Post extends Model
         'is_active',
         'published_at',
         'image',
-        'is_comment'
+        'is_comment',
     ];
 
     public function categoryPost()
     {
         return $this->hasOne(CategoryPost::class);
     }
+
     public function users()
     {
         return $this->hasOne(User::class);
     }
+
     public function comments()
     {
         return $this->hasOne(Comment::class);
     }
+
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id' => (int) $this->title,
+            'title' => $this->title,
             'slug' => $this->slug,
+            'description' => $this->description,
         ];
     }
 
@@ -53,6 +58,6 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'categoryPost', 'postId', 'categoryId');
+        return $this->belongsToMany(Category::class, 'categoryPosts', 'post_id', 'category_id');
     }
 }

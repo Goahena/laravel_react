@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
+    use Searchable;
     use HasFactory;
 
-    protected $table = 'contacts';
-
-    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     public $timestamps = false;
 
@@ -20,11 +20,11 @@ class Contact extends Model
         'email',
         'content',
         'seen',
-        'user_id',
+        'user_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

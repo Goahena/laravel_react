@@ -11,7 +11,7 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 Route::group([
-    'middlware' => 'api',
+    'middleware' => 'api',
     'prefix' => 'auth',
 ],function($router){
     Route::post('/login', [AuthController::class, 'login']);
@@ -38,6 +38,7 @@ Route::group([
 
 Route::get('/search', [SearchController::class, 'search']);
 
+
 // bài viết
 Route::apiResource('posts', PostController::class);
 
@@ -52,13 +53,20 @@ Route::group([
     Route::delete('/{id}', [CommentController::class, 'destroy']);
 });
 
+//Liên hệ
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'auth:api', // Chỉ cho phép người dùng đã đăng nhập
     'prefix' => 'contact',
-], function ($router) {
+], function () {
     Route::get('/', [ContactController::class, 'index']);
     Route::post('/', [ContactController::class, 'store']);
     Route::get('/{id}', [ContactController::class, 'show']);
     Route::put('/{id}', [ContactController::class, 'update']);
     Route::delete('/{id}', [ContactController::class, 'destroy']);
 });
+// bài viết
+Route::apiResource('posts', PostController::class);
+
+// danh mục
+Route::apiResource('categories', CategoryController::class);
+

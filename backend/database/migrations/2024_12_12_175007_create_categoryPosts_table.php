@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('categoryPosts', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->string('fullname', 150);
-            $table->string('email',150);
-            $table->string('content', 150);
-            $table->timestamp('created_at')->nullable()->useCurrent();
-            $table->boolean('seen')->default(true);
-            $table->integer('user_id')->index();
+            $table->integer('post_id');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->integer('category_id')->index();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('post_categorys');
     }
 };
