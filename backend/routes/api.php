@@ -38,14 +38,17 @@ Route::group([
 
 Route::get('/search', [SearchController::class, 'search']);
 
-//Bình luận
+
+// bài viết
+Route::apiResource('posts', PostController::class);
+
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'comment',
-], function($router){
+    'prefix' => 'comments',
+], function () {
     Route::get('/', [CommentController::class, 'index']);
+    Route::get('/post/{postId}', [CommentController::class, 'getCommentsByPost']);
     Route::post('/', [CommentController::class, 'store']);
-    Route::get('/{id}', [CommentController::class, 'show']);
     Route::put('/{id}', [CommentController::class, 'update']);
     Route::delete('/{id}', [CommentController::class, 'destroy']);
 });

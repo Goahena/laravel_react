@@ -48,8 +48,9 @@ class ContactController extends Controller
             'fullname' => 'required',
             'email' => 'required|email',
             'content' => 'required',
-            'user_id' => 'required|exists:users,id'
         ]);
+
+        $validated['user_id'] = auth()->id();
 
         $contact = Contact::findOrFail($id);
         $contact->update($validated);
