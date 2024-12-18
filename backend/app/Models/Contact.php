@@ -11,8 +11,6 @@ class Contact extends Model
     use Searchable;
     use HasFactory;
 
-    public $timestamps = true;
-
     public $timestamps = false;
 
     protected $fillable = [

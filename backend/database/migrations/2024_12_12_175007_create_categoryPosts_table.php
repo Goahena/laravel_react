@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categoryPosts', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->integer('id')->primary()->autoIncrement();
             $table->integer('post_id');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->integer('category_id')->index();

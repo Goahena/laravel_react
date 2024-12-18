@@ -33,7 +33,7 @@ class PostController extends Controller
                 'author_name' => $post->author->username
             ])->values()
         ])->values();
-    
+
         return response()->json($result);
     }
 
@@ -45,11 +45,11 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'description' => 'nullable|max:255',
             'tag' => 'nullable|max:255',
-            'author_id' => 'required|exists:users,id',
             'is_active' => 'boolean',
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
         ]);
+        $validated['author_id'] = auth()->id();
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
                 $imagePath = $request->file('image')->store('images', 'public');
@@ -109,11 +109,11 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'description' => 'nullable|max:255',
             'tag' => 'nullable|max:255',
-            'author_id' => 'required|exists:users,id',
             'is_active' => 'boolean',
             'published_at' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048',
         ]);
+        $validated['author_id'] = auth()->id();
 
         if ($request->hasFile('image')) {
             if ($post->image) {
