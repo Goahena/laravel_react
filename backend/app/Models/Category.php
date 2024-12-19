@@ -9,8 +9,12 @@ class Category extends Model
 {
     use Searchable;
     use HasFactory;
-    public $updated_at = false;
-    public $created_at = false;
+    protected $fillable = ['slug', 'name', 'parentId'];
+    public $timestamps = false;
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parentId');
+    }
     public function posts()
     {
         return $this->hasOne(Post::class);
@@ -27,6 +31,6 @@ class Category extends Model
         'slug' => $this->slug,
         'description' => $this->description,
     ];
-    
+
 }
 }

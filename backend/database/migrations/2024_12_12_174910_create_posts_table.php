@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->integer('id')->primary()->autoIncrement();
             $table->string('slug', 150);
             $table->string('tag', 150);
             $table->string('title', 150);
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('is_comment')->default(true);
             $table->integer('author_id');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-            
+
         });
     }
 
