@@ -17,19 +17,19 @@ class categories_table extends Seeder
            'id' => 1,
            'name' => 'Chính trị',
            'slug' => 'chinh-tri',
-           'parent_id' => 1,
+           'parentId' => 1,
         ]);
         Category::create([
             'id' => 2,
             'name' => 'Khoa học',
             'slug' => 'khoa-hoc',
-            'parent_id' => 1,
+            'parentId' => 1,
         ]);
         Category::create([
             'id' => 3,
             'name' => 'Quân sự',
             'slug' => 'quan-su',
-            'parent_id' => 1,
+            'parentId' => 1,
         ]);
     }
 }

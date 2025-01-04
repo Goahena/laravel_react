@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('is_comment')->default(true);
             $table->integer('author_id');
             $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-            
+
         });
     }
 
